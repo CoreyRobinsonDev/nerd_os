@@ -1,6 +1,20 @@
+import styles from "./Desktop.module.css";
+import { useAppSelector } from "@/util/redux/store";
 
 export default function Desktop() {
-    return <section>
+    const taskbar = useAppSelector((state) => state.settings.desktop.taskbar);
+    const style = {
+        backgroundColor: useAppSelector((state) => state.settings.desktop.wallpaperColor),
+        color: useAppSelector((state) => state.settings.desktop.textColor),
+        width: taskbar.position === "top" || taskbar.position === "bottom"
+            ? "100vw"
+            : `calc(100vw - ${taskbar.width}rem)`,
+        height: taskbar.position === "top" || taskbar.position === "bottom"
+            ? `calc(100vh - ${taskbar.width}rem)`
+            : "100vh"
+    }
+
+    return <section className={styles.section} style={style}>
         DESKTOP
     </section>
 }
