@@ -12,7 +12,8 @@ const initialState = {
             position: "left",
             width: 4
         }
-    }
+    },
+    saveInterval: 1
 }
 
 const settingsSlice = createSlice({
@@ -30,6 +31,9 @@ const settingsSlice = createSlice({
         },
         setTaskbarWidth: (state, {payload}) => {
             state.desktop.taskbar.width = payload; 
+        },
+        setSaveInterval: (state, {payload}) => {
+            state.saveInterval = payload;
         }
     }
 })
@@ -40,5 +44,6 @@ export const {
     setTextColor,
     setTaskbarPosition,
     setTaskbarWidth,
+    setSaveInterval,
 } = settingsSlice.actions;
 

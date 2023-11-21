@@ -7,10 +7,10 @@ export default function Taskbar() {
     const taskbar = useAppSelector((state) => state.settings.desktop.taskbar);
     const style = {
         width: taskbar.position === "top" || taskbar.position === "bottom"
-            ? "100vw"
+            ? "fit-content"
             : taskbar.width + "rem",
         height: taskbar.position === "left" || taskbar.position === "right"
-            ? "100vh"
+            ? "fit-content"
             : taskbar.width + "rem",
         flexDirection: taskbar.position === "top" || taskbar.position === "bottom" 
             ? "row"

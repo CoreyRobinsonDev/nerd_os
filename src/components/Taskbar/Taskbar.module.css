@@ -4,6 +4,7 @@
     background-color: black;
     color: #eee;
     padding: 2rem;
+    border-radius: var(--border);
 }
 
 .menu {
