@@ -12,7 +12,8 @@ export default function DesktopContainer() {
             ? "row-reverse"
             : taskbar.position === "top"
             ? "column-reverse"
-            : "column"
+            : "column",
+        backgroundColor: useAppSelector((state) => state.settings.desktop.wallpaper.color), 
     }
 
     //@ts-ignore

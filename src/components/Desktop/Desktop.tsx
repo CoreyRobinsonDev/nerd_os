@@ -4,8 +4,8 @@ import { useAppSelector } from "@/util/redux/store";
 export default function Desktop() {
     const taskbar = useAppSelector((state) => state.settings.desktop.taskbar);
     const style = {
-        backgroundColor: useAppSelector((state) => state.settings.desktop.wallpaperColor),
-        color: useAppSelector((state) => state.settings.desktop.textColor),
+        backgroundColor: useAppSelector((state) => state.settings.desktop.wallpaper.color),
+        color: useAppSelector((state) => state.settings.desktop.text.color),
         width: taskbar.position === "top" || taskbar.position === "bottom"
             ? "100vw"
             : `calc(100vw - ${taskbar.width}rem)`,

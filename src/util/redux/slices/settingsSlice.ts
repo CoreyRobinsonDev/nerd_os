@@ -2,8 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     desktop: {
-        wallpaperColor: "#222",
-        textColor: "#eee",
+        wallpaper: {
+            color: "#222"
+        },
+        text: {
+            color: "#eee"
+        },
         taskbar: {
             position: "left",
             width: 4
@@ -16,10 +20,10 @@ const settingsSlice = createSlice({
     initialState,
     reducers: {
         setWallpaperColor: (state, {payload}) => {
-            state.desktop.wallpaperColor = payload;
+            state.desktop.wallpaper.color = payload;
         },
         setTextColor: (state, {payload}) => {
-            state.desktop.textColor = payload;
+            state.desktop.text.color = payload;
         },
         setTaskbarPosition: (state, {payload}) => {
             state.desktop.taskbar.position = payload;

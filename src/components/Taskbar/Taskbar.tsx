@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 import styles from "./Taskbar.module.css";
 import { useAppSelector } from "@/util/redux/store";
 
@@ -18,15 +20,15 @@ export default function Taskbar() {
     //@ts-ignore
     return <section className={styles.section} style={style}>
         <button className={styles.menu}>
-            <span className={styles.dot}></span> 
-            <span className={styles.dot}></span> 
-            <span className={styles.dot}></span> 
-            <span className={styles.dot}></span> 
-            <span className={styles.dot}></span> 
-            <span className={styles.dot}></span> 
-            <span className={styles.dot}></span> 
-            <span className={styles.dot}></span> 
-            <span className={styles.dot}></span> 
+            <motion.span className={styles.dot} whileHover={{scale: 2}}></motion.span> 
+            <motion.span className={styles.dot} whileHover={{scale: 2}}></motion.span> 
+            <motion.span className={styles.dot} whileHover={{scale: 2}}></motion.span> 
+            <motion.span className={styles.dot} whileHover={{scale: 2}}></motion.span> 
+            <motion.span className={styles.dot} whileHover={{scale: 2}}></motion.span> 
+            <motion.span className={styles.dot} whileHover={{scale: 2}}></motion.span> 
+            <motion.span className={styles.dot} whileHover={{scale: 2}}></motion.span> 
+            <motion.span className={styles.dot} whileHover={{scale: 2}}></motion.span> 
+            <motion.span className={styles.dot} whileHover={{scale: 2}}></motion.span> 
         </button>
     </section>
 }
