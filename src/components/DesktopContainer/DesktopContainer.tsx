@@ -26,11 +26,11 @@ export default function DesktopContainer() {
     }, [])
 
     useEffect(() => {
-        const timeout = setTimeout(() => {
+        const timeout = setInterval(() => {
             dispatch(saveData());
         }, 1000 * saveInterval)
 
-        return () => clearTimeout(timeout);
+        return () => clearInterval(timeout);
     }, [])
 
     //@ts-ignore

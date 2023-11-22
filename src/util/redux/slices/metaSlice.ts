@@ -9,7 +9,7 @@ type State = {
 
 const initialState: State = {
     desktop: {
-        icons: []
+        icons: [{id: 0, name: "windows installer installer application", x: 0, y: 0}]
     }
 }
 
@@ -21,9 +21,10 @@ const metaSlice = createSlice({
             localStorage.setItem("meta", JSON.stringify(state));
         },
         loadData: (state) => {
-            const cache: State | undefined = localStorage.getItem("meta") 
+            const cache: State | null = localStorage.getItem("meta") 
+                //@ts-ignore
                 ? JSON.parse(localStorage.getItem("meta"))
-                : undefined;
+                : null;
 
             if (cache) {
                 for (const [key, value] of Object.entries(cache)) {
@@ -37,8 +38,11 @@ const metaSlice = createSlice({
                 state[key as keyof State] = value;
             }
         },
-        addIcon: (state, {payload}) => {
+        addIcon: (state, {payload}: {payload: IconProperties}) => {
             state.desktop.icons.push(payload);
+        },
+        updateIcon: (state, {payload}: {payload: IconProperties}) => {
+            state.desktop.icons[state.desktop.icons.findIndex((icon) => icon.id === payload.id)] = payload;
         }
     }
 })
@@ -49,5 +53,6 @@ export const {
     loadData,
     clearData,
     addIcon,
+    updateIcon,
 } = metaSlice.actions;
 

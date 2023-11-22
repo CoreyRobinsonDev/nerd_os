@@ -13,7 +13,7 @@ const initialState = {
             width: 4
         }
     },
-    saveInterval: 1
+    saveInterval: 10
 }
 
 const settingsSlice = createSlice({

@@ -1,50 +1,38 @@
-import type { IconMeta } from "@/util/types";
+import type { IconProperties, MousePosition } from "@/util/types";
 import { useState, useEffect } from "react";
-import { motion, useMotionValue } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 
 import { IoShapes } from "react-icons/io5";
 import styles from "./Icon.module.css";
 import { useAppDispatch } from "@/util/redux/store";
-import { addIcon } from "@/util/redux/slices/metaSlice";
+import { updateIcon } from "@/util/redux/slices/metaSlice";
 
-export default function Icon({
-    meta,
-    image,
-    name,
-}: { meta: IconMeta, image?: string, name?: string }) {
+export default function Icon({ meta, properties }: { meta: MousePosition, properties: IconProperties }) {
     const dispatch = useAppDispatch();
-    const [iName, setiName] = useState(name || "text");
-    const x = useMotionValue(0);
-    const y = useMotionValue(0);
+    const [mouseDown, setMouseDown] = useState(false);
 
     useEffect(() => {
-        const unsubX = x.on("change", (latest) => console.log("x:", latest));
-        const unsubY = y.on("change", (latest) => console.log("y:", latest));
-
-        return () => {
-            unsubX();
-            unsubY();
+        if (mouseDown) {
+            dispatch(updateIcon({...properties, x: meta.mouseX, y: meta.mouseY}))
         }
-    }, [x,y])
+        console.log(meta.mouseX, meta.mouseY);
+    }, [meta.mouseX, meta.mouseY])
 
-    useEffect(() => {
-        dispatch(addIcon({name, image, x: x.getPrevious(), y: y.getPrevious()}));
-    }, [])
 
     return <motion.section 
-        title={name}
+        onMouseUp={() => setMouseDown(false)}
+        onMouseDown={() => setMouseDown(true)}
+        title={properties.name}
         className={styles.section}
         whileHover={{backgroundColor: "rgba(30,30,30, 0.5)"}}
-        drag
-        dragConstraints={meta.container}
-        dragMomentum={false}
-        style={{x,y}}
+        initial={{left: `${properties.x}px`, top: `${properties.y}px`}}
+        animate={{left: `${properties.x}px`, top: `${properties.y}px`}}
         >
-        {image 
-            ? <Image className={styles.image} src={image} alt={name || ""} /> 
+        {properties.image 
+            ? <Image className={styles.image} src={properties.image} alt={properties.name} /> 
             : <IoShapes className={styles.image} />
         }
-        <span className={styles.name}>{iName}</span>
+        <span className={styles.name}>{properties.name}</span>
     </motion.section>
 }

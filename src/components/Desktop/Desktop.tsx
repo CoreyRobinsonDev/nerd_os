@@ -1,11 +1,13 @@
-import { useRef } from "react";
+import { useState } from "react";
 
 import styles from "./Desktop.module.css";
 import { useAppSelector } from "@/util/redux/store";
 import Icon from "../Icon/Icon";
 
 export default function Desktop() {
-    const sectionRef = useRef<HTMLElement>(null);
+    const [mouseX, setMouseX] = useState(0);
+    const [mouseY, setMouseY] = useState(0);
+    const icons = useAppSelector((state) => state.meta.desktop.icons); 
     const taskbar = useAppSelector((state) => state.settings.desktop.taskbar);
     const style = {
         backgroundColor: useAppSelector((state) => state.settings.desktop.wallpaper.color),
@@ -18,7 +20,11 @@ export default function Desktop() {
             : "calc(100vh - 2rem)"
     }
 
-    return <section ref={sectionRef} className={styles.section} style={style}>
-        <Icon meta={{container: sectionRef}} name="windows installer installer app" />
+    return <section 
+        className={styles.section} 
+        style={style}
+        onMouseMove={(e) => {setMouseX(e.nativeEvent.offsetX); setMouseY(e.nativeEvent.offsetY);}}
+    >
+        {icons.map((icon) => <Icon key={icon.id} meta={{mouseX, mouseY}} properties={icon} />)}
     </section>
 }
